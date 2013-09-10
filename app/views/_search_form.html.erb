@@ -1,0 +1,11 @@
+<% form_tag u_path, method: :get do %>
+  <%(1..3).each do|i|%>
+    <div>
+      <%= select("and_conditions[#{i}]",'search_by', options_for_select(Purify::Search.fields(klass)), {:prompt => 'Please Select...'},{:class => 'search_by list_select'})%>
+      <%= select("and_conditions[#{i}]",'search_op', options_for_select(Purify::Search.operators), {:prompt => 'Please Select...'},{:class => 'search_op list_select'}) %>
+      <%= text_field_tag("and_conditions[#{i}][search_value]",'',:class =>'iText search_value list_select', :autocomplete => 'off')%>
+    </div>
+  <%end%>
+  <%= submit_tag 'Search'%>
+<%end%>
+
