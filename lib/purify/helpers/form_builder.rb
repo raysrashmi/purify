@@ -7,9 +7,9 @@ module Purify
           (1..3).each do|i|
             concat(
               content_tag(:div) do
-                content_tag(:select,  options_for_select(Purify::Search.fields(klass)), 
+                content_tag(:select,  options_for_select(Search.fields(klass, rejected_columns)), 
                           prompt: 'Please Select...', class: 'search_by', name: "and_conditions[#{i}][search_by]")+
-                content_tag(:select, options_for_select(Purify::Search.operators),
+                content_tag(:select, options_for_select(Search.operators(rejected_operators)),
                           prompt: 'Please Select..', class: 'search_op', name: "and_conditions[#{i}][search_op]")+
                 content_tag(:input,'', type: 'text', name: "and_conditions[#{i}][search_value]")
 

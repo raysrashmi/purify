@@ -29,12 +29,12 @@ module Purify
       @and_conditions = opts.blank? ? [] : parse_conditions(symbolize_keys_deep!(opts))
     end
 
-    def self.fields(klass)
-      klass.columns.map{|c|[c.name.titleize, c.name]}
+    def self.fields(klass, rejected_columns =[])
+      klass.column_names.reject{|c|rejected_columns.include?(c)}.map{|name|[name.titleize, name]}
     end
 
-    def self.operators
-      OPERATORS.values.map{|o|[o[:name], o[:op]]}
+    def self.operators(rejected_operators=[])
+      OPERATORS.values.reject{|c|rejected_operators.include?(c[:name])}.map{|o|[o[:name], o[:op]]}
     end
 
     def search_options
@@ -55,7 +55,6 @@ module Purify
       else
         []
       end
-
     end
 
 
