@@ -1,6 +1,7 @@
 require 'purify/errors/search_error'
 require 'purify/errors/blank_search_field_exception'
 require 'purify/errors/search_field_exception'
+
 module Purify
   class Search
 
@@ -29,11 +30,11 @@ module Purify
       @and_conditions = opts.blank? ? [] : parse_conditions(symbolize_keys_deep!(opts))
     end
 
-    def self.fields(klass, rejected_columns =[])
+    def self.fields(klass, rejected_columns = [])
       klass.column_names.reject{|c|rejected_columns.include?(c)}.map{|name|[name.titleize, name]}
     end
 
-    def self.operators(rejected_operators=[])
+    def self.operators(rejected_operators = [])
       OPERATORS.values.reject{|c|rejected_operators.include?(c[:name])}.map{|o|[o[:name], o[:op]]}
     end
 
@@ -183,8 +184,7 @@ module Purify
       op[:number] = [OPERATORS[:gt][:op], OPERATORS[:lt][:op], 
         OPERATORS[:gte][:op], OPERATORS[:lte][:op],OPERATORS[:equals][:op]]
 
-      op[:datetime] =[OPERATORS[:gt][:op], OPERATORS[:lt][:op], 
-        OPERATORS[:gte][:op], OPERATORS[:lte][:op],OPERATORS[:equals][:op]]
+      op[:datetime] = op[:number]
       op
     end
 
